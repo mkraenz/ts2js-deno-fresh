@@ -52,7 +52,7 @@ export default function Home() {
         height="100px"
         alt="the fresh logo: a sliced lemon dripping with juice"
       />
-      <p style={styles.heading}>ts2js</p>
+      <header style={styles.heading}>ts2js</header>
       <p style={styles.subheading}>Convert TypeScript to JavaScript Online</p>
       <Converter />
     </div>
