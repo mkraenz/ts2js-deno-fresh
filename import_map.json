@@ -3,6 +3,8 @@
     "$fresh/": "https://deno.land/x/fresh@1.0.2/",
     "preact": "https://esm.sh/preact@10.10.0",
     "preact/": "https://esm.sh/preact@10.10.0/",
-    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.1?external=preact"
+    "preact-render-to-string": "https://esm.sh/preact-render-to-string@5.2.1?external=preact",
+    "lodash.debounce": "https://esm.sh/lodash.debounce@4.0.8",
+    "typescript": "https://esm.sh/typescript@4.7.4"
   }
 }

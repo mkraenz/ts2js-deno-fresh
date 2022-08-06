@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from "preact";
-import LandingPage from "../islands/LandingPage.tsx";
+import Converter from "../islands/Converter.tsx";
 
 /** workaround to avoid weird escaping of curlies */
 const globalStyle = `
@@ -16,11 +16,45 @@ export const Head = () => (
   </head>
 );
 
+const color = {
+  lightBlue: "#00C0FA",
+  black: "#000000",
+  grey: "#272727",
+};
+
+const styles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    height: "100vh",
+    width: "100vw",
+    backgroundColor: color.grey,
+  },
+  heading: {
+    color: color.lightBlue,
+    fontSize: "4em",
+    margin: 0,
+  },
+  subheading: {
+    fontSize: "2em",
+    color: color.lightBlue,
+  },
+};
+
 export default function Home() {
   return (
-    <div>
+    <div style={styles.container}>
       <Head />
-      <LandingPage />
+      <img
+        src="/logo.svg"
+        height="100px"
+        alt="the fresh logo: a sliced lemon dripping with juice"
+      />
+      <p style={styles.heading}>ts2js</p>
+      <p style={styles.subheading}>Convert TypeScript to JavaScript Online</p>
+      <Converter />
     </div>
   );
 }

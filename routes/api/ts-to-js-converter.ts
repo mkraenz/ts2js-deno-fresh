@@ -1,16 +1,17 @@
 import { HandlerContext } from "$fresh/server.ts";
-import * as ts from "https://esm.sh/typescript@4.7.4";
+import * as ts from "typescript";
 
 export default function tsToJsConverter(source: string): string {
   const result = ts.transpileModule(source, {
     compilerOptions: { module: ts.ModuleKind.CommonJS },
   });
-  console.log(result.outputText);
   return result.outputText;
 }
 
+// test:
 // const source = "let x: string  = 'hello world'";
-// tsToJsConverter(source);
+// const result = tsToJsConverter(source);
+// console.log(result)
 
 export const handler = async (
   _req: Request,

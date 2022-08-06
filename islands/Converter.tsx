@@ -1,4 +1,5 @@
 /** @jsx h */
+import debounce from "lodash.debounce";
 import { h } from "preact";
 import { useState } from "preact/hooks";
 
@@ -14,19 +15,8 @@ const styles = {
     justifyContent: "center",
     flexDirection: "column",
     alignItems: "center",
-    height: "100vh",
-    width: "100vw",
+    width: "100%",
     backgroundColor: color.grey,
-    overflowY: "hidden",
-  },
-  heading: {
-    color: color.lightBlue,
-    fontSize: "4em",
-    margin: 0,
-  },
-  subheading: {
-    fontSize: "2em",
-    color: color.lightBlue,
   },
   button: {
     margin: "16px",
@@ -39,9 +29,10 @@ const styles = {
   },
 };
 
-export default function LandingPage() {
+export default function Converter() {
   const [code, setCode] = useState("");
   const convert = async () => {
+    if (code.length === 0) return;
     const res = await fetch("/api/ts-to-js-converter", {
       method: "POST",
       headers: {
@@ -52,15 +43,9 @@ export default function LandingPage() {
     const body = await res.json();
     setCode(body.js);
   };
+  const debouncedConvert = debounce(convert, 500, { leading: true });
   return (
     <div style={styles.container}>
-      <img
-        src="/logo.svg"
-        height="100px"
-        alt="the fresh logo: a sliced lemon dripping with juice"
-      />
-      <p style={styles.heading}>ts2js</p>
-      <p style={styles.subheading}>Convert TypeScript to JavaScript Online</p>
       <textarea
         type="text"
         cols={120}
@@ -69,7 +54,7 @@ export default function LandingPage() {
         value={code}
         onChange={(e) => setCode(e.currentTarget.value)}
       />
-      <button style={styles.button} onClick={convert}>
+      <button style={styles.button} onClick={debouncedConvert}>
         Convert!
       </button>
     </div>
