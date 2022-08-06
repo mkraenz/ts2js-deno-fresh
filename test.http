@@ -1,0 +1,10 @@
+POST http://localhost:8000/api/ts-to-js-converter
+Content-Type: 'json'
+
+{
+    "source": "const a: number = 1;",
+    "email": "a@b.de"
+}
+
+###
+GET http://localhost:8000/api/joke
