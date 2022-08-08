@@ -2,6 +2,7 @@
 import debounce from "lodash.debounce";
 import { h } from "preact";
 import { useState } from "preact/hooks";
+import CopyToClipboardIcon from "../components/CopyToClipboardIcon.tsx";
 
 const color = {
   lightBlue: "#00C0FA",
@@ -26,6 +27,38 @@ const styles = {
     backgroundColor: color.black,
     fontSize: "2em",
     fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  outputContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    height: "100%",
+  },
+  copyButton: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    margin: "8px",
+    padding: "8px",
+    borderRadius: "16px",
+    color: color.lightBlue,
+    backgroundColor: color.black,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  icon: {
+    paddingRight: "4px",
+  },
+  textarea: {
+    margin: "16px",
+    fontFamily: "monospace",
+  },
+  textareaContainer: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    display: "flex",
   },
 };
 
@@ -49,8 +82,11 @@ export default function Converter() {
     setTranspiled(body.js);
   };
   const debouncedConvert = debounce(convert, 500, { leading: true });
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(transpiled);
+  };
   return (
-    <div style={styles.container}>
+    <main style={styles.container}>
       <select
         onChange={(e) => {
           console.log(e.currentTarget.value);
@@ -73,33 +109,33 @@ export default function Converter() {
           ES2022
         </option>
       </select>
-      <div
-        style={{
-          justifyContent: "space-between",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
+      <div style={styles.textareaContainer}>
         <textarea
           cols={80}
           rows={30}
-          placeholder="Paste your TypeScript code here..."
+          placeholder="Paste or type your TypeScript code here..."
           value={code}
           onChange={(e) => setCode(e.currentTarget.value)}
-          style={{ margin: "16px" }}
+          style={styles.textarea}
         />
-        <textarea
-          cols={80}
-          rows={30}
-          placeholder="Result will be displayed here..."
-          value={transpiled}
-          style={{ margin: "16px" }}
-          onChange={() => {}}
-        />
+        <div style={styles.outputContainer}>
+          <textarea
+            cols={80}
+            // the outputContainer needs to be at most as large as the input text area
+            rows={26}
+            placeholder="Result will be displayed here..."
+            value={transpiled}
+            style={styles.textarea}
+          />
+          <button style={styles.copyButton} onClick={copyToClipboard}>
+            <CopyToClipboardIcon color={color.lightBlue} style={styles.icon} />
+            Copy to clipboard
+          </button>
+        </div>
       </div>
       <button style={styles.button} onClick={debouncedConvert}>
-        Convert!
+        Convert
       </button>
-    </div>
+    </main>
   );
 }

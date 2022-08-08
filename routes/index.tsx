@@ -47,12 +47,16 @@ export default function Home() {
   return (
     <div style={styles.container}>
       <Head />
-      <img
-        src="/logo.svg"
-        height="100px"
-        alt="the fresh logo: a sliced lemon dripping with juice"
-      />
-      <header style={styles.heading}>ts2js</header>
+      <div
+        style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      >
+        <img
+          src="/logo.svg"
+          height="100px"
+          alt="the fresh logo: a sliced lemon dripping with juice"
+        />
+        <header style={styles.heading}>ts2js</header>
+      </div>
       <p style={styles.subheading}>Convert TypeScript to JavaScript Online</p>
       <Converter />
     </div>
